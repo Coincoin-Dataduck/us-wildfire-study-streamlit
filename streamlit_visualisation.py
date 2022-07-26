@@ -305,12 +305,12 @@ if selected == "Et la sécheresse ?":
             '''
             )
     
-        #dr = pd.read_csv('asset/drought_TX.csv', sep = ',')
-        #dr.MapDate = pd.to_datetime(dr.MapDate, format = '%Y%m%d')
-        #dr.drop(['StateAbbreviation', 'StatisticFormatID', 'ValidStart', 'ValidEnd'], axis = 1, inplace = True)
-        #dr = dr.set_index(['MapDate'])
-        #dr.sort_values(by = ['MapDate'], inplace = True)
-        #st.dataframe(dr.iloc[702:715,:])
+        dr = pd.read_csv('asset/drought_TX.csv', sep = ',')
+        dr.MapDate = pd.to_datetime(dr.MapDate, format = '%Y%m%d')
+        dr.drop(['StateAbbreviation', 'StatisticFormatID', 'ValidStart', 'ValidEnd'], axis = 1, inplace = True)
+        dr = dr.set_index(['MapDate'])
+        dr.sort_values(by = ['MapDate'], inplace = True)
+        st.dataframe(dr.iloc[702:715,:])
             
         st.markdown('*Note : données représentant le pourcentage du territoire ayant atteint le niveau de sécheresse indiqué*')
         
