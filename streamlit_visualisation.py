@@ -117,7 +117,6 @@ if selected == "Allons en Alaska":
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi nulla, volutpat sed euismod quis, hendrerit a odio. Integer dignissim volutpat ullamcorper. Integer commodo sapien finibus lacus tempus, sit amet consequat justo mollis. Quisque quis velit erat. In placerat scelerisque felis a laoreet. Curabitur sed justo ac lectus commodo scelerisque. Praesent ut nisi lectus. Vestibulum mollis varius ex sit amet placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat.')
 
 if selected == "Étude « Powerlines »":
-    st.markdown(" # Étude « Powerlines »")
     st.markdown(" ## L'anomalie")
     st.markdown('L\'étude de la fréquence des feux par cause révèle une anomalie particulière à partir de l\'année '
                 '2011 : une hausse des feux liés aux lignes haute-tension sans précédent.')
@@ -478,6 +477,9 @@ if selected == "Prédiction de feu":
                     'vagues de chaleurs exceptionnelles sur les feux.')
 
 if selected == "Conclusion":
-    st.markdown("### Conclusion")
-    st.markdown(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi nulla, volutpat sed euismod quis, hendrerit a odio. Integer dignissim volutpat ullamcorper. Integer commodo sapien finibus lacus tempus, sit amet consequat justo mollis. Quisque quis velit erat. In placerat scelerisque felis a laoreet. Curabitur sed justo ac lectus commodo scelerisque. Praesent ut nisi lectus. Vestibulum mollis varius ex sit amet placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat.')
+    
+    st.markdown("<h2 style='text-align: center;'>Les mots de la fin sous forme de 🔥 Flamme 🔥</h2>", unsafe_allow_html=True)
+
+    image = Image.open('asset/WordCloud.png')
+    col1, col2, col3 = st.columns([1, 1.8, 1])
+    col2.image(image, use_column_width=True)
