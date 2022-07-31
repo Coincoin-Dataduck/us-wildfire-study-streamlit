@@ -126,8 +126,8 @@ if selected == "Allons en Alaska":
         
         st.markdown('L\'Alaska est le plus grand État américain, avec 1,723 millions de kilomètres carrés. Pour bien se représenter sa taille, voici quelques comparaisons :')
         
-        comp_ak = Image.open('comp_ak.png')
-        comp_fr = Image.open('comp_fr.png')
+        comp_ak = Image.open('asset/comp_ak.png')
+        comp_fr = Image.open('asset/comp_fr.png')
             
        
         st.image(comp_ak, caption = 'L\'Alaska représente 18% de la surface totale des États-unis. Source : thetruesize.com')
@@ -140,11 +140,11 @@ if selected == "Allons en Alaska":
      
         st.markdown("### Taille des feux comparative")
      
-        df2 = pd.read_csv("df_ak.csv")
+        df2 = pd.read_csv("asset/df_ak.csv")
         df2['KM'] = df2['FIRE_SIZE'].apply(lambda x: x*2,58999)
         df2.rename(columns = {'KM' : 'Kilomètres carrés'},  inplace = True)
         
-        df_new = pd.read_csv('df_ak2.csv')
+        df_new = pd.read_csv('asset/df_ak2.csv')
     
        
         fig, ax = plt.subplots(figsize=(3, 4))        
@@ -167,7 +167,7 @@ if selected == "Allons en Alaska":
         
         st.markdown("### Quelle origine ont les feux en Alaska ?")
         
-        df_cause = pd.read_csv("df_cause.csv", index_col=0)
+        df_cause = pd.read_csv("asset/df_cause.csv", index_col=0)
         df_cause = pd.DataFrame(df_cause.value_counts())
         df_cause.reset_index(inplace = True)
         df_cause.rename({0:'Nb'}, axis = 1, inplace = True)
@@ -187,7 +187,7 @@ if selected == "Allons en Alaska":
         
         st.markdown("### Analyse de la saisonalité des feux")
  
-        df_th = pd.read_csv("df_th.csv")
+        df_th = pd.read_csv("asset/df_th.csv")
         
         fig, ax = plt.subplots(figsize=(6, 4))
 
@@ -207,7 +207,7 @@ if selected == "Allons en Alaska":
         
         st.markdown("### Quelle part de la surface brûlée pour les éclairs en Alaska ?")
         
-        df_ak = pd.read_csv('df_ak3.csv')
+        df_ak = pd.read_csv('asset/df_ak3.csv')
 
         fig, ax = plt.subplots(figsize=(12, 8))
         
@@ -256,7 +256,7 @@ if selected == "Allons en Alaska":
             '''
             )
         
-        mont_denali = Image.open('mount-denali.jpg')
+        mont_denali = Image.open('asset/mount-denali.jpg')
         st.image(mont_denali, caption = 'Le mont Denali, point culminant de l\'Amérique du nord, s\'élevant à 6 190 mètres d\'altitude')
 if selected == "Étude « Powerlines »":
     st.markdown(" ## L'anomalie")
