@@ -112,10 +112,152 @@ if selected == "Introduction en cartes":
         components.html(source_code, height=600)
 
 if selected == "Allons en Alaska":
-    st.markdown("### Allons en Alaska")
-    st.markdown(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi nulla, volutpat sed euismod quis, hendrerit a odio. Integer dignissim volutpat ullamcorper. Integer commodo sapien finibus lacus tempus, sit amet consequat justo mollis. Quisque quis velit erat. In placerat scelerisque felis a laoreet. Curabitur sed justo ac lectus commodo scelerisque. Praesent ut nisi lectus. Vestibulum mollis varius ex sit amet placerat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam erat volutpat.')
+   # Intro et comparaison de la taille de l'Alaska   
 
+    st.markdown("## Allons en Alaska")
+
+    tab1, tab2, tab3, tab4 = st.tabs([" 🗺️ Cartes comparatives", " 🕵🏻 Recherche des causes de feu", " ⚡ Éclairs, fléaux de l\'Alaska ", " Conclusion "])
+   
+    # Cartes comparatives
+    
+    with tab1:
+              
+        st.markdown("### L\'Alaska par rapport au reste du monde")
+        
+        st.markdown('L\'Alaska est le plus grand État américain, avec 1,723 millions de kilomètres carrés. Pour bien se représenter sa taille, voici quelques comparaisons :')
+        
+        comp_ak = Image.open('comp_ak.png')
+        comp_fr = Image.open('comp_fr.png')
+            
+       
+        st.image(comp_ak, caption = 'L\'Alaska représente 18% de la surface totale des États-unis. Source : thetruesize.com')
+        
+        
+        st.image(comp_fr, caption = 'Comparaison avec la France. Source : thetruesize.com')
+                    
+    
+    # Graphique de comparaisons des états USA
+     
+        st.markdown("### Taille des feux comparative")
+     
+        df2 = pd.read_csv("df_ak.csv")
+        df2['KM'] = df2['FIRE_SIZE'].apply(lambda x: x*2,58999)
+        df2.rename(columns = {'KM' : 'Kilomètres carrés'},  inplace = True)
+        
+        df_new = pd.read_csv('df_ak2.csv')
+    
+       
+        fig, ax = plt.subplots(figsize=(3, 4))        
+    
+        plt.bar(df2['STATE'].head(5),df2['FIRE_SIZE'].head(5),width = 0.9, color = 'r', label = 'Surface brulée')
+        plt.bar(df2['STATE'].head(5),df2['STATE_AREA'].head(5),width = 0.9, bottom = df2['FIRE_SIZE'].head(5), color = 'g', label = 'Surface totale')
+        plt.title("Comparaison entre surface totale et surface brulée depuis le début des observations")
+        plt.ylabel('taille en miles carrés')
+        plt.legend()         
+        
+        st.pyplot(fig)
+        
+        if st.checkbox('Afficher le détail par État de la surface brulée en kilomètres carrés'):
+            st.write(df2[['STATE', 'Kilomètres carrés']].head(5))
+    
+        st.markdown('Ces comparaisons faites, nous comprenons maintenant pourquoi l\'Alaska est l\'État américain avec la plus grande surface brulée.')
+        
+    # Causes des feux en Alaska
+    with tab2:
+        
+        st.markdown("### Quelle origine ont les feux en Alaska ?")
+        
+        df_cause = pd.read_csv("df_cause.csv", index_col=0)
+        df_cause = pd.DataFrame(df_cause.value_counts())
+        df_cause.reset_index(inplace = True)
+        df_cause.rename({0:'Nb'}, axis = 1, inplace = True)
+       
+        fig, ax = plt.subplots(figsize=(6, 4)) 
+               
+        plt.bar(df_cause['STAT_CAUSE_DESCR'], df_cause['Nb'], width = 0.8, alpha = 0.9, color = 'r')
+        plt.ylabel("Nombre d'enregistrements")
+        plt.xticks(rotation = 70)
+        plt.title('Cause des feux en Alaska depuis 1992')
+        
+        st.pyplot(fig)
+            
+        st.markdown('Nous constatons que les éclairs sont responsables de la plus grande partie des feux de forêt en Alaska.')
+ 
+    #saisonnalité
+        
+        st.markdown("### Analyse de la saisonalité des feux")
+ 
+        df_th = pd.read_csv("df_th.csv")
+        
+        fig, ax = plt.subplots(figsize=(6, 4))
+
+        df_th['MONTH'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, 
+                                                            color = 'orange', ylabel = "Nombre d'enregistrements", 
+                                                            title = 'Numéro des mois où les feux dûs aux éclairs ont été enregistrés depuis 1992 en Alaska')
+        plt.xticks(rotation = 70);
+        
+        st.pyplot(fig)
+        
+        st.markdown('On note également une très forte saisonnalité des feux de forêts liée aux éclairs. Les mois de juin et juillet sont particulièrement propices aux départs de feux. La chaleur et la séchresse des sols sont une très bonne base pour leur départ.')
+        st.markdown('Bien que situé au nord, l\'Alaska est le 11e État le plus sec des États-unis selon la NOAA.' )
+    
+    # Analyse sur les éclairs
+    
+    with tab3:
+        
+        st.markdown("### Quelle part de la surface brûlée pour les éclairs en Alaska ?")
+        
+        df_ak = pd.read_csv('df_ak3.csv')
+
+        fig, ax = plt.subplots(figsize=(12, 8))
+        
+        plt.subplot(1, 2, 1) 
+        df_th['FIRE_SIZE_CLASS'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, color = '#9c7816', 
+                                                               title = 'Feux dûs aux éclairs enregistrés en Alaska par classe depuis 1992', 
+                                                               ylabel = 'Enregistrements', xlabel = 'Classe des feux', ylim=(1,7000))
+        plt.xticks(rotation=45);
+        
+        plt.subplot(1, 2, 2)
+        df_ak['FIRE_SIZE_CLASS'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, color = '#9c6216', 
+                                                               title = 'Feux enregistrés par classe en Alaska depuis 1992', 
+                                                               xlabel = 'Classe des feux', ylim=(1,7000))
+        plt.xticks(rotation=45);
+      
+        st.pyplot(fig)
+        
+        st.markdown('Ces graphiques nous permettent de montrer à quel point les éclairs sont dangereux pour l\'Alaska, car ils sont responsables des grands feux la plupart du temps.')
+        
+        if st.checkbox('Afficher le détail des classes'):
+        
+            st.markdown('Classe A - moins de 0.25 acres (1011 m²)')           
+            st.markdown('Classe B - entre 0.25 acres et 10 acres (0.04 km²)')
+            st.markdown('Classe C - entre 10 et 100 acres (0.4 km²)')
+            st.markdown('Classe D - entre 100 et 300 acres (1.21 km²)')
+            st.markdown('Classe E - entre 300 et 1000 acres (4.04 km²)')
+            st.markdown('Classe F - entre 1000 et 5000 acres (20.23 km²)')
+            st.markdown('Classe G - plus de 5000 acres' )
+        
+        if st.checkbox('Afficher l\'ampleur des dégâts'):
+            
+            st.markdown('Sur 650 feux de classe G recensés en Alaska, 610 avaient pour origine les éclairs, c\'est à dire 93,8 %.')           
+            st.markdown('Sur 413 feux de classe F recensés en Alaska, 375 avaient pour origine les éclairs, c\'est à dire 90,7 %.')
+            st.markdown('Sur 378 feux de classe E recensés en Alaska, 328 avaient pour origine les éclairs, c\'est à dire 86,7 %.')
+            
+    #conclusion    
+    
+    with tab4:
+        st.markdown('Ce qui fait la beauté de l\'Alaska fait aussi sa faiblesse :')
+        st.markdown(
+            '''
+            * Un très grand État = plus de chance d'être frappé par les éclairs
+            * Un été sec = de la matière pour les départs de feux
+            * 48 millons d'hectares de forêts = un combustible idéal la saison des éclairs
+            * Des paysages magnifique = une plus grande difficulté pour contenir les feux
+            '''
+            )
+        
+        mont_denali = Image.open('mount-denali.jpg')
+        st.image(mont_denali, caption = 'Le mont Denali, point culminant de l\'Amérique du nord, s\'élevant à 6 190 mètres d\'altitude')
 if selected == "Étude « Powerlines »":
     st.markdown(" ## L'anomalie")
     st.markdown('L\'étude de la fréquence des feux par cause révèle une anomalie particulière à partir de l\'année '
