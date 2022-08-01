@@ -114,31 +114,34 @@ if selected == "Introduction en cartes":
 if selected == "Allons en Alaska":
    # Intro et comparaison de la taille de l'Alaska   
 
-    st.markdown("## Allons en Alaska")
+    st.markdown("## Etude des feux en Alaska")
 
-    tab1, tab2, tab3, tab4 = st.tabs([" 🗺️ Cartes comparatives", " 🕵🏻 Recherche des causes de feu", " ⚡ Éclairs, fléaux de l\'Alaska ", " Conclusion "])
+    tab1, tab2, tab3, tab4 = st.tabs([" 🗺️ Cartes comparatives", " 🕵🏻 Recherche des causes de feux", " ⚡ Éclairs, fléaux de l\'Alaska ", " Conclusion "])
    
     # Cartes comparatives
     
     with tab1:
               
-        st.markdown("### L\'Alaska par rapport au reste du monde")
+        st.markdown("### L\'Alaska comparé au reste du monde")
         
-        st.markdown('L\'Alaska est le plus grand État américain, avec 1,723 millions de kilomètres carrés. Pour bien se représenter sa taille, voici quelques comparaisons :')
+        st.markdown('''
+                    L\'Alaska est le plus grand État américain, avec une superficie de 1 723 millions de kilomètres carrés.  
+                    Pour bien se représenter sa taille, voici 2 comparaisons :
+                    ''')
         
         comp_ak = Image.open('asset/comp_ak.png')
         comp_fr = Image.open('asset/comp_fr.png')
             
        
-        st.image(comp_ak, caption = 'L\'Alaska représente 18% de la surface totale des États-unis. Source : thetruesize.com')
+        st.image(comp_ak, caption = '1) L\'Alaska représente 18% de la surface totale des États-unis - Source : thetruesize.com')
         
         
-        st.image(comp_fr, caption = 'Comparaison avec la France. Source : thetruesize.com')
+        st.image(comp_fr, caption = '2) Comparaison avec la France - Source : thetruesize.com')
                     
     
     # Graphique de comparaisons des états USA
      
-        st.markdown("### Taille des feux comparative")
+        st.markdown("### L\'Alaska comparé aux autres États")
      
         df2 = pd.read_csv("asset/df_ak.csv")
         df2['KM'] = df2['FIRE_SIZE'].apply(lambda x: x*2,58999)
@@ -147,37 +150,37 @@ if selected == "Allons en Alaska":
         df_new = pd.read_csv('asset/df_ak2.csv')
     
        
-        fig, ax = plt.subplots(figsize=(3, 4))        
+        fig, ax = plt.subplots(figsize=(3, 3))        
     
         plt.bar(df2['STATE'].head(5),df2['FIRE_SIZE'].head(5),width = 0.9, color = 'r', label = 'Surface brulée')
         plt.bar(df2['STATE'].head(5),df2['STATE_AREA'].head(5),width = 0.9, bottom = df2['FIRE_SIZE'].head(5), color = 'g', label = 'Surface totale')
         plt.title("Comparaison entre surface totale et surface brulée depuis le début des observations")
-        plt.ylabel('taille en miles carrés')
+        plt.ylabel('Surface en miles carrés')
         plt.legend()         
         
         st.pyplot(fig)
         
-        if st.checkbox('Afficher le détail par État de la surface brulée en kilomètres carrés'):
+        if st.checkbox('Afficher le détail par État de la surface brûlée en kilomètres carrés'):
             st.write(df2[['STATE', 'Kilomètres carrés']].head(5))
     
-        st.markdown('Ces comparaisons faites, nous comprenons maintenant pourquoi l\'Alaska est l\'État américain avec la plus grande surface brulée.')
+        st.markdown('Ces comparaisons faites, nous comprenons maintenant pourquoi l\'Alaska est l\'État américain avec la plus grande surface brûlée.')
         
     # Causes des feux en Alaska
     with tab2:
         
-        st.markdown("### Quelle origine ont les feux en Alaska ?")
+        st.markdown("### Quelles origines ont les feux en Alaska ?")
         
         df_cause = pd.read_csv("asset/df_cause.csv", index_col=0)
         df_cause = pd.DataFrame(df_cause.value_counts())
         df_cause.reset_index(inplace = True)
         df_cause.rename({0:'Nb'}, axis = 1, inplace = True)
        
-        fig, ax = plt.subplots(figsize=(6, 4)) 
+        fig, ax = plt.subplots(figsize=(6, 2)) 
                
         plt.bar(df_cause['STAT_CAUSE_DESCR'], df_cause['Nb'], width = 0.8, alpha = 0.9, color = 'r')
         plt.ylabel("Nombre d'enregistrements")
         plt.xticks(rotation = 70)
-        plt.title('Cause des feux en Alaska depuis 1992')
+        plt.title('Causes des feux en Alaska depuis 1992')
         
         st.pyplot(fig)
             
@@ -189,7 +192,7 @@ if selected == "Allons en Alaska":
  
         df_th = pd.read_csv("asset/df_th.csv")
         
-        fig, ax = plt.subplots(figsize=(6, 4))
+        fig, ax = plt.subplots(figsize=(6, 3))
 
         df_th['MONTH'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, 
                                                             color = 'orange', ylabel = "Nombre d'enregistrements", 
@@ -198,18 +201,18 @@ if selected == "Allons en Alaska":
         
         st.pyplot(fig)
         
-        st.markdown('On note également une très forte saisonnalité des feux de forêts liée aux éclairs. Les mois de juin et juillet sont particulièrement propices aux départs de feux. La chaleur et la séchresse des sols sont une très bonne base pour leur départ.')
+        st.markdown('On note également une très forte saisonnalité des feux de forêts liée aux éclairs. Les mois de juin et juillet sont particulièrement propices aux départs de feux. La chaleur et la sécheresse des sols sont facteurs favorisant leur départ.')
         st.markdown('Bien que situé au nord, l\'Alaska est le 11e État le plus sec des États-unis selon la NOAA.' )
     
     # Analyse sur les éclairs
     
     with tab3:
         
-        st.markdown("### Quelle part de la surface brûlée pour les éclairs en Alaska ?")
+        st.markdown("### Quel est l'impact réel des feux dûs aux éclairs en Alaska ?")
         
         df_ak = pd.read_csv('asset/df_ak3.csv')
 
-        fig, ax = plt.subplots(figsize=(12, 8))
+        fig, ax = plt.subplots(figsize=(12, 4))
         
         plt.subplot(1, 2, 1) 
         df_th['FIRE_SIZE_CLASS'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, color = '#9c7816', 
@@ -227,7 +230,7 @@ if selected == "Allons en Alaska":
         
         st.markdown('Ces graphiques nous permettent de montrer à quel point les éclairs sont dangereux pour l\'Alaska, car ils sont responsables des grands feux la plupart du temps.')
         
-        if st.checkbox('Afficher le détail des classes'):
+        if st.checkbox('Afficher le détail des classes de feux'):
         
             st.markdown('Classe A - moins de 0.25 acres (1011 m²)')           
             st.markdown('Classe B - entre 0.25 acres et 10 acres (0.04 km²)')
@@ -249,10 +252,10 @@ if selected == "Allons en Alaska":
         st.markdown('Ce qui fait la beauté de l\'Alaska fait aussi sa faiblesse :')
         st.markdown(
             '''
-            * Un très grand État = plus de chance d'être frappé par les éclairs
-            * Un été sec = de la matière pour les départs de feux
-            * 48 millons d'hectares de forêts = un combustible idéal la saison des éclairs
-            * Des paysages magnifique = une plus grande difficulté pour contenir les feux
+            * **Un très grand État** = risque plus élevé d'être frappé par les éclairs
+            * **Une densité de population très faible** = des moyens très limités pour contenir les feux
+            * **Des étés secs** = une météo qui favorise les départs de feux
+            * **48 millons d'hectares de forêts** = un combustible idéal pour la prolifération des feux
             '''
             )
         
@@ -550,7 +553,7 @@ if selected == "Prédiction de feu":
 
         # Displaying the source data
         st.markdown('Cette prédiction est donnée par rapport aux prédictions météos actuelles pour la journée de demain '
-                    'par openweather pour l\'Alaska')
+                    'par openweather pour l\'Alaska :')
         temperature = round(((response.json()['daily'][0]['temp']['day']) -32) / 1.8, 2)
         temperature_max = round(((response.json()['daily'][0]['temp']['max']) - 32) / 1.8, 2)
         temperature_min = round(((response.json()['daily'][0]['temp']['min']) - 32) / 1.8, 2)
