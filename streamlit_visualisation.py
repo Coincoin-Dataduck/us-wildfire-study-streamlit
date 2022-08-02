@@ -150,11 +150,11 @@ if selected == "Allons en Alaska":
         df_new = pd.read_csv('asset/df_ak2.csv')
     
        
-        fig, ax = plt.subplots(figsize=(3, 3))        
+        fig, ax = plt.subplots(figsize=(5, 6))        
     
         plt.bar(df2['STATE'].head(5),df2['FIRE_SIZE'].head(5),width = 0.9, color = 'r', label = 'Surface brulée')
         plt.bar(df2['STATE'].head(5),df2['STATE_AREA'].head(5),width = 0.9, bottom = df2['FIRE_SIZE'].head(5), color = 'g', label = 'Surface totale')
-        plt.title("Comparaison entre surface totale et surface brulée depuis le début des observations")
+        plt.title("Comparaison entre surface totale et surface brulée depuis 1992")
         plt.ylabel('Surface en miles carrés')
         plt.legend()         
         
@@ -175,10 +175,10 @@ if selected == "Allons en Alaska":
         df_cause.reset_index(inplace = True)
         df_cause.rename({0:'Nb'}, axis = 1, inplace = True)
        
-        fig, ax = plt.subplots(figsize=(6, 2)) 
+        fig, ax = plt.subplots(figsize=(6, 4)) 
                
         plt.bar(df_cause['STAT_CAUSE_DESCR'], df_cause['Nb'], width = 0.8, alpha = 0.9, color = 'r')
-        plt.ylabel("Nombre d'enregistrements")
+        plt.ylabel("Nombre de feux")
         plt.xticks(rotation = 70)
         plt.title('Causes des feux en Alaska depuis 1992')
         
@@ -192,11 +192,11 @@ if selected == "Allons en Alaska":
  
         df_th = pd.read_csv("asset/df_th.csv")
         
-        fig, ax = plt.subplots(figsize=(6, 3))
+        fig, ax = plt.subplots(figsize=(6, 4))
 
         df_th['MONTH'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, 
-                                                            color = 'orange', ylabel = "Nombre d'enregistrements", 
-                                                            title = 'Numéro des mois où les feux dûs aux éclairs ont été enregistrés depuis 1992 en Alaska')
+                                                            color = 'orange', ylabel = "Nombre de feux", 
+                                                            title = 'Mois où les feux dûs aux éclairs ont été enregistrés en Alaska')
         plt.xticks(rotation = 70);
         
         st.pyplot(fig)
@@ -212,17 +212,17 @@ if selected == "Allons en Alaska":
         
         df_ak = pd.read_csv('asset/df_ak3.csv')
 
-        fig, ax = plt.subplots(figsize=(12, 4))
+        fig, ax = plt.subplots(figsize=(12, 5))
         
         plt.subplot(1, 2, 1) 
         df_th['FIRE_SIZE_CLASS'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, color = '#9c7816', 
-                                                               title = 'Feux dûs aux éclairs enregistrés en Alaska par classe depuis 1992', 
+                                                               title = 'Feux dûs aux éclairs en Alaska par classe', 
                                                                ylabel = 'Enregistrements', xlabel = 'Classe des feux', ylim=(1,7000))
         plt.xticks(rotation=45);
         
         plt.subplot(1, 2, 2)
         df_ak['FIRE_SIZE_CLASS'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, color = '#9c6216', 
-                                                               title = 'Feux enregistrés par classe en Alaska depuis 1992', 
+                                                               title = 'Feux enregistrés en Alaska par classe', 
                                                                xlabel = 'Classe des feux', ylim=(1,7000))
         plt.xticks(rotation=45);
       
@@ -249,7 +249,7 @@ if selected == "Allons en Alaska":
             
             plt.pie(data, autopct=lambda p: format(p, 
         '.2f') if p > 1.3 else None, pctdistance=0.8, labels = labels, radius = 0.8)
-            plt.title('Origine des feux de classe G (20.23 km² +)', fontsize = 15, fontweight='bold')
+            plt.title('Origine des feux de classe G (20.23 km² +)', fontsize = 12, fontweight='bold')
             
             
             
@@ -262,7 +262,7 @@ if selected == "Allons en Alaska":
             
             plt.pie(data, autopct=lambda p: format(p, 
         '.2f') if p > 1.68 else None, pctdistance=0.8, labels = labels, radius = 0.8)
-            plt.title('Origine des feux de classe F (4.04 à 20.23 km²)', fontsize = 15, fontweight='bold')
+            plt.title('Origine des feux de classe F (4.04 à 20.23 km²)', fontsize = 12, fontweight='bold')
             
             
             
@@ -275,7 +275,7 @@ if selected == "Allons en Alaska":
             
             plt.pie(data, autopct=lambda p: format(p, 
         '.2f') if p > 2 else None, pctdistance=0.8, labels = labels, radius = 0.8)
-            plt.title('Origine des feux de classe E (1.21 à 4.04 km²)', fontsize = 15, fontweight='bold')
+            plt.title('Origine des feux de classe E (1.21 à 4.04 km²)', fontsize = 12, fontweight='bold')
             
                        
             st.pyplot(fig)
