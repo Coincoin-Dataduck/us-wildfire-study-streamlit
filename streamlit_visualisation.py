@@ -634,10 +634,10 @@ if selected == "Prédiction de feu":
                     'coup des APIs météo les contraintes techniques et temporelles, ainsi que le présupposé imparfait.')
 
 
-        if selected == "Conclusion":
+if selected == "Conclusion":
 
-        st.markdown("<h2 style='text-align: center;'>Les mots de la fin sous forme de 🔥 Flamme 🔥</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Les mots de la fin sous forme de 🔥 Flamme 🔥</h2>", unsafe_allow_html=True)
 
-        image = Image.open('asset/WordCloud.png')
-        col1, col2, col3 = st.columns([1, 1.8, 1])
-        col2.image(image, use_column_width=True)
+    image = Image.open('asset/WordCloud.png')
+    col1, col2, col3 = st.columns([1, 1.8, 1])
+    col2.image(image, use_column_width=True)
