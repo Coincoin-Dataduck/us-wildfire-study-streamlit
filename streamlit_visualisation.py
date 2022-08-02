@@ -261,6 +261,7 @@ if selected == "Allons en Alaska":
         
         mont_denali = Image.open('asset/mount-denali.jpg')
         st.image(mont_denali, caption = 'Le mont Denali, point culminant de l\'Amérique du nord, s\'élevant à 6 190 mètres d\'altitude')
+
 if selected == "Étude « Powerlines »":
     st.markdown(" ## L'anomalie")
     st.markdown('L\'étude de la fréquence des feux par cause révèle une anomalie particulière à partir de l\'année '
@@ -277,12 +278,12 @@ if selected == "Étude « Powerlines »":
     plt.axhline(y=df_powerline['FIRE_YEAR'].value_counts().mean(), color='blue', label='Moyenne');
     plt.xlabel("Année")
     plt.ylabel('Feux par an')
-    tab2.subheader("Nombre de feux par an dûs aux lignes électrique aux EUA")
+    tab2.subheader("Nombre de feux par an dû aux lignes électriques aux EUA")
     plt.legend();
     tab2.pyplot(fig)
 
     st.markdown(
-        'Quand on regarde l\'évolution de ces feux par état, en se concentrant sur les états qui rapportent plus de 500 '
+        'Quand on regarde l\'évolution de ces feux par État, en se concentrant sur les états qui rapportent plus de 500 '
         'feux, on constate que le Texas est le plus gros contributeur de cette anomalie, et de loin.')
 
     col11, col21 = st.columns(2)
@@ -311,6 +312,8 @@ if selected == "Étude « Powerlines »":
             plt.axhline(y=df_powerline['FIRE_YEAR'].value_counts().mean() / 50, color='blue',
                         label='Moyenne sur l\'ensemble des états');
             plt.title(f'Nombre de feux par an pour {selected_state}', fontsize=15)
+            plt.xlabel("Année")
+            plt.ylabel('Feux par an')
             plt.legend();
             st.pyplot(fig)
 
@@ -372,7 +375,7 @@ if selected == "Étude « Powerlines »":
     with st.expander('Des infrastructures vieillissantes'):
         st.markdown(
             'Des rapports provenant de nombreuses régions des États-Unis montrent que les compagnies d\'électricité sont '
-            'poursuivies pour avoir négligé l\'infrastructure des lignes électriques, notamment au Texas où une grande partie de'
+            'poursuivies pour avoir négligé l\'infrastructure des lignes électriques, notamment au Texas où une grande partie de '
             'l\'infrastructure appartient à des sociétés privées. De par leur conception, elles doivent donner un retour sur '
             'investissement, et non pas fonctionner au profit du plus grand nombre en opposition avec l\'État. Le résultat est '
             'qu\'elles font le minimum pour éviter une défaillance systémique, la plupart du temps c\'est suffisant, mais en cas '
@@ -577,12 +580,12 @@ if selected == "Prédiction de feu":
         col1, col2 = st.columns(2)
         with col1:
             temperature_s = st.slider('Température moyenne (°C)', value=temperature, min_value=-20.0, max_value=50.0, step=1.0)*1.8+32
-            temperature_max_s = st.slider('Température max (°C)', value=temperature_max, min_value=temperature_s, max_value=55.0, step=1.0)*1.8+32
-            temperature_min_s = st.slider('Température min (°C)', value=temperature_min, min_value=-25.0, max_value=temperature_s, step=1.0)*1.8+32
+            temperature_max_s = st.slider('Température max (°C)', value=temperature_max, min_value=-20, max_value=55.0, step=1.0)*1.8+32
+            temperature_min_s = st.slider('Température min (°C)', value=temperature_min, min_value=-25.0, max_value=55, step=1.0)*1.8+32
             dew_point_s = st.slider('Point de rosée (°C)', value=dew_point, min_value=0.0, max_value=35.0, step=1.0)*1.8+32
         with col2:
             wind_speed_s = st.slider('Vitesse du vent (km/h)', value=wind_speed, min_value=0.0, max_value=100.0, step=1.0)*0.62137119223738
-            gust_speed_s = st.slider('Vitesse des rafales (km/h)', value=gust_speed, min_value=wind_speed, max_value=100.0, step=1.0)*0.62137119223738
+            gust_speed_s = st.slider('Vitesse des rafales (km/h)', value=gust_speed, min_value=0, max_value=100.0, step=1.0)*0.62137119223738
             precipitation_s = st.slider('Précipitation (mm)', value=float(precipitation), min_value=0.0, max_value=100.0, step=1.0)*0.039370078740158
 
         weather_data_s = pd.DataFrame([[temperature_s,
@@ -603,14 +606,14 @@ if selected == "Prédiction de feu":
         feu.metric("Probabilité d'avoir un feu", f'{round(prediction_s[0][1]*100, 2)} % ±15', "🔥", delta_color='off')
 
     with tab2:
-        st.markdown('Ce model à été construit sur les données issues du global daily summary de la NOAA. Il regroupe '
-                    'les données de millers de stations météo à la surface du globe. Après un filtrage des données sur '
+        st.markdown('Ce modèle à été construit sur les données issues du global daily summary de la NOAA. Il regroupe '
+                    'les données de millers de stations météo à la surface du globe. Après un filtrage sur '
                     'la période et les stations qui nous intéressent, celles-ci on été groupées par date et par état. À '
-                    'chaque jour a été associé ou non la présence d\'un feu.')
+                    'chaque jour a été associé la présence d\'un feu ou non.')
         st.markdown('Un modèle d\'HistGradientBoostingClassifier qui donnait les meilleurs résultats a été entrainé '
-                    'pour chaque état afin de respecter les différents biomes.')
+                    'pour chaque État afin de respecter les différents biomes.')
 
-        st.markdown('Le modèle donne d\'assez bons résultats de prédiction, en voici sa courbe ROC :')
+        st.markdown('Le modèle pour l\'Alaska donne d\'assez bons résultats de prédiction, en voici sa courbe ROC :')
         image = Image.open('asset/roc-curve.png')
         st.image(image)
 
@@ -621,7 +624,17 @@ if selected == "Prédiction de feu":
         st.markdown('L\'importance donnée à la température max nous donne un bon ordre d\'idée de l\'impact de '
                     'vagues de chaleurs exceptionnelles sur les feux.')
 
-if selected == "Conclusion":
+        st.markdown('### Limites')
+        st.markdown('Le modèle dispose de données anciennes pour réaliser son entraînement les données utilisées ici '
+                    'pour les prédictions sont des données actuelles. De plus, que ce soit pour les données de '
+                    'prédiction ou d\'entraînement se sont des arrondis pour la journée et pour l\'État entier ce qui '
+                    'entraîne inévitablement une plus grande incertitude dans la prédiction. Enfin le présupposé de base'
+                    ' qui considère une forte corrélation entre les données météo et la survenue des feux est '
+                    'partiellement vrai. Les causes de ces limitations sont connues : le jeu de données initial, le '
+                    'coup des APIs météo les contraintes techniques et temporelles, ainsi que le présupposé imparfait.')
+
+
+        if selected == "Conclusion":
     
     st.markdown("<h2 style='text-align: center;'>Les mots de la fin sous forme de 🔥 Flamme 🔥</h2>", unsafe_allow_html=True)
 
