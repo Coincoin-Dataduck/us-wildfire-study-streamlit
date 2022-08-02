@@ -230,7 +230,58 @@ if selected == "Allons en Alaska":
         
         st.markdown('Ces graphiques nous permettent de montrer à quel point les éclairs sont dangereux pour l\'Alaska, car ils sont responsables des grands feux la plupart du temps.')
         
-        if st.checkbox('Afficher le détail des classes de feux'):
+        if st.checkbox('Afficher l\'ampleur des dégâts'):
+            
+                        
+            df_G = df_ak[df_ak['FIRE_SIZE_CLASS'] == 'G']
+            df_F = df_ak[df_ak['FIRE_SIZE_CLASS'] == 'F']
+            df_E = df_ak[df_ak['FIRE_SIZE_CLASS'] == 'E']
+              
+            
+            fig, ax = plt.subplots(figsize=(20, 20))
+            
+            plt.subplot(1, 3, 1) 
+            
+            labels = ['Lightning', 'Undefined','Debris burning','','Others','','','','','']
+            
+                      
+            data = df_G['STAT_CAUSE_DESCR'].value_counts()
+            
+            plt.pie(data, autopct=lambda p: format(p, 
+        '.2f') if p > 1.3 else None, pctdistance=0.8, labels = labels, radius = 0.8)
+            plt.title('Origine des feux de classe G (20.23 km² +)', fontsize = 15, fontweight='bold')
+            
+            
+            
+            plt.subplot(1, 3, 2)
+            
+            labels = ['Lightning', 'Debris burning','Campfire','Arson','','Others','','','']
+            
+                      
+            data = df_F['STAT_CAUSE_DESCR'].value_counts()
+            
+            plt.pie(data, autopct=lambda p: format(p, 
+        '.2f') if p > 1.68 else None, pctdistance=0.8, labels = labels, radius = 0.8)
+            plt.title('Origine des feux de classe F (4.04 à 20.23 km²)', fontsize = 15, fontweight='bold')
+            
+            
+            
+            plt.subplot(1, 3, 3)
+            
+            labels = ['Lightning', 'Campfire','Misc','Undefined','Arson','Others','','']
+            
+                      
+            data = df_E['STAT_CAUSE_DESCR'].value_counts()
+            
+            plt.pie(data, autopct=lambda p: format(p, 
+        '.2f') if p > 2 else None, pctdistance=0.8, labels = labels, radius = 0.8)
+            plt.title('Origine des feux de classe E (1.21 à 4.04 km²)', fontsize = 15, fontweight='bold')
+            
+                       
+            st.pyplot(fig)
+            
+        
+        if st.checkbox('Afficher le détail des classes'):
         
             st.markdown('Classe A - moins de 0.25 acres (1011 m²)')           
             st.markdown('Classe B - entre 0.25 acres et 10 acres (0.04 km²)')
@@ -240,11 +291,6 @@ if selected == "Allons en Alaska":
             st.markdown('Classe F - entre 1000 et 5000 acres (20.23 km²)')
             st.markdown('Classe G - plus de 5000 acres' )
         
-        if st.checkbox('Afficher l\'ampleur des dégâts'):
-            
-            st.markdown('Sur 650 feux de classe G recensés en Alaska, 610 avaient pour origine les éclairs, c\'est à dire 93,8 %.')           
-            st.markdown('Sur 413 feux de classe F recensés en Alaska, 375 avaient pour origine les éclairs, c\'est à dire 90,7 %.')
-            st.markdown('Sur 378 feux de classe E recensés en Alaska, 328 avaient pour origine les éclairs, c\'est à dire 86,7 %.')
             
     #conclusion    
     
