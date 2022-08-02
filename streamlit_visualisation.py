@@ -635,9 +635,9 @@ if selected == "Prédiction de feu":
 
 
         if selected == "Conclusion":
-    
-    st.markdown("<h2 style='text-align: center;'>Les mots de la fin sous forme de 🔥 Flamme 🔥</h2>", unsafe_allow_html=True)
 
-    image = Image.open('asset/WordCloud.png')
-    col1, col2, col3 = st.columns([1, 1.8, 1])
-    col2.image(image, use_column_width=True)
+        st.markdown("<h2 style='text-align: center;'>Les mots de la fin sous forme de 🔥 Flamme 🔥</h2>", unsafe_allow_html=True)
+
+        image = Image.open('asset/WordCloud.png')
+        col1, col2, col3 = st.columns([1, 1.8, 1])
+        col2.image(image, use_column_width=True)
