@@ -580,12 +580,12 @@ if selected == "Prédiction de feu":
         col1, col2 = st.columns(2)
         with col1:
             temperature_s = st.slider('Température moyenne (°C)', value=temperature, min_value=-20.0, max_value=50.0, step=1.0)*1.8+32
-            temperature_max_s = st.slider('Température max (°C)', value=temperature_max, min_value=-20, max_value=55.0, step=1.0)*1.8+32
-            temperature_min_s = st.slider('Température min (°C)', value=temperature_min, min_value=-25.0, max_value=55, step=1.0)*1.8+32
+            temperature_max_s = st.slider('Température max (°C)', value=temperature_max, min_value=-20.0, max_value=55.0, step=1.0)*1.8+32
+            temperature_min_s = st.slider('Température min (°C)', value=temperature_min, min_value=-25.0, max_value=55.0, step=1.0)*1.8+32
             dew_point_s = st.slider('Point de rosée (°C)', value=dew_point, min_value=0.0, max_value=35.0, step=1.0)*1.8+32
         with col2:
             wind_speed_s = st.slider('Vitesse du vent (km/h)', value=wind_speed, min_value=0.0, max_value=100.0, step=1.0)*0.62137119223738
-            gust_speed_s = st.slider('Vitesse des rafales (km/h)', value=gust_speed, min_value=0, max_value=100.0, step=1.0)*0.62137119223738
+            gust_speed_s = st.slider('Vitesse des rafales (km/h)', value=gust_speed, min_value=0.0, max_value=100.0, step=1.0)*0.62137119223738
             precipitation_s = st.slider('Précipitation (mm)', value=float(precipitation), min_value=0.0, max_value=100.0, step=1.0)*0.039370078740158
 
         weather_data_s = pd.DataFrame([[temperature_s,
