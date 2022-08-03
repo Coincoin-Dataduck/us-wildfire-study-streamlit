@@ -150,7 +150,7 @@ if selected == "Allons en Alaska":
         df_new = pd.read_csv('asset/df_ak2.csv')
     
        
-        fig, ax = plt.subplots(figsize=(5, 6))        
+        fig, ax = plt.subplots(figsize=(5, 5))        
     
         plt.bar(df2['STATE'].head(5),df2['FIRE_SIZE'].head(5),width = 0.9, color = 'r', label = 'Surface brulée')
         plt.bar(df2['STATE'].head(5),df2['STATE_AREA'].head(5),width = 0.9, bottom = df2['FIRE_SIZE'].head(5), color = 'g', label = 'Surface totale')
@@ -175,7 +175,7 @@ if selected == "Allons en Alaska":
         df_cause.reset_index(inplace = True)
         df_cause.rename({0:'Nb'}, axis = 1, inplace = True)
        
-        fig, ax = plt.subplots(figsize=(6, 4)) 
+        fig, ax = plt.subplots(figsize=(6, 3)) 
                
         plt.bar(df_cause['STAT_CAUSE_DESCR'], df_cause['Nb'], width = 0.8, alpha = 0.9, color = 'r')
         plt.ylabel("Nombre de feux")
@@ -192,7 +192,7 @@ if selected == "Allons en Alaska":
  
         df_th = pd.read_csv("asset/df_th.csv")
         
-        fig, ax = plt.subplots(figsize=(6, 4))
+        fig, ax = plt.subplots(figsize=(6, 3))
 
         df_th['MONTH'].value_counts().sort_index().plot(kind = 'bar', width = 0.8, alpha = 0.9, 
                                                             color = 'orange', ylabel = "Nombre de feux", 
