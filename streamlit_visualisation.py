@@ -630,8 +630,8 @@ if selected == "Prédiction de feu":
             temperature_min_s = st.slider('Température min (°C)', value=2.00, min_value=-25.0, max_value=55.0, step=1.0)*1.8+32
             dew_point_s = st.slider('Point de rosée (°C)', value=2.5, min_value=0.0, max_value=35.0, step=1.0)*1.8+32
         with col2:
-            wind_speed_s = st.slider('Vitesse du vent (km/h)', value=10, min_value=0.0, max_value=100.0, step=1.0)*0.62137119223738
-            gust_speed_s = st.slider('Vitesse des rafales (km/h)', value=20, min_value=0.0, max_value=100.0, step=1.0)*0.62137119223738
+            wind_speed_s = st.slider('Vitesse du vent (km/h)', value=10.0, min_value=0.0, max_value=100.0, step=1.0)*0.62137119223738
+            gust_speed_s = st.slider('Vitesse des rafales (km/h)', value=20.0, min_value=0.0, max_value=100.0, step=1.0)*0.62137119223738
             precipitation_s = st.slider('Précipitation (mm)', value=0.0, min_value=0.0, max_value=500.0, step=10.0)*0.039370078740158
 
         weather_data_s = pd.DataFrame([[temperature_s,
