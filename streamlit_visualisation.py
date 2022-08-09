@@ -122,7 +122,7 @@ if selected == "Allons en Alaska":
     
     with tab1:
               
-        st.markdown("### L\'Alaska comparé au reste du monde")
+        st.markdown("### L\'Alaska comparé au reste du pays et du monde")
         
         st.markdown('''
                     L\'Alaska est le plus grand État américain, avec une superficie de 1,723 millions de kilomètres carrés.  
