@@ -114,7 +114,7 @@ if selected == "Introduction en cartes":
 if selected == "Allons en Alaska":
    # Intro et comparaison de la taille de l'Alaska   
 
-    st.markdown("## Etude des feux en Alaska")
+    st.markdown("## Étude des feux en Alaska")
 
     tab1, tab2, tab3, tab4 = st.tabs([" 🗺️ Cartes comparatives", " 🕵🏻 Recherche des causes de feux", " ⚡ Éclairs, fléau de l\'Alaska ", " Conclusion "])
    
@@ -125,7 +125,7 @@ if selected == "Allons en Alaska":
         st.markdown("### L\'Alaska comparé au reste du monde")
         
         st.markdown('''
-                    L\'Alaska est le plus grand État américain, avec une superficie de 1 723 millions de kilomètres carrés.  
+                    L\'Alaska est le plus grand État américain, avec une superficie de 1,723 millions de kilomètres carrés.  
                     Pour bien se représenter sa taille, voici 2 comparaisons :
                     ''')
         
@@ -202,7 +202,7 @@ if selected == "Allons en Alaska":
         st.pyplot(fig)
         
         st.markdown('On note également une très forte saisonnalité des feux de forêts liée aux éclairs. Les mois de juin et juillet sont particulièrement propices aux départs de feux. La chaleur et la sécheresse des sols sont facteurs favorisant leur départ.')
-        st.markdown('Bien que situé au nord, l\'Alaska est le 11e État le plus sec des États-unis selon la NOAA.' )
+        st.markdown('Bien que situé au nord, l\'Alaska est le 11e État le plus sec des États-unis selon la NOAA (National Oceanic and Atmospheric Administration).' )
     
     # Analyse sur les éclairs
     
